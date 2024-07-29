@@ -56,48 +56,72 @@ const cadastro = () => {
     console.log("Usuário cadastrado com sucesso!")
 }
 const listagem = () => {
-    usuarios.forEach(element => {
-        console.log(`
-        Nome: ${element.nome}
-        Email: ${element.email}
-        Telefones: ${element.telefones}
-        ID: ${element.id}`)
-    });
-}
-const atualizar = () => {
-    listagem();
-    let ID = +prompt("Informe o ID que deseja alterar: ");
-    let teste = verificaNum(ID);
-    if(teste == false){
-        const usuario = modelo();
-        for(let i = 0; i < usuarios.length; i++){
-            if(ID == usuarios[i].id){
-                usuarios[i] = usuario;
-                break;
-            }
-        }
-        console.log("Usuário atualizado com sucesso!") 
+    if(usuarios.length == 0){
+        console.log("Sem usuários cadastrados! Adicione usuários para serem listados...")
+        return
     }else{
-        console.log("Digite um ID válido!")
+        usuarios.forEach(element => {
+            console.log(`
+            Nome: ${element.nome}
+            Email: ${element.email}
+            Telefones: ${element.telefones}
+            ID: ${element.id}`)
+        });
     }
 }
-const deletar = () => {
-    listagem();
-    while(true){
-        usuarioDeletar = parseInt(prompt("Informe o ID que deseja apagar: "));
-        let teste = verificaNum(usuarioDeletar);
+const atualizar = () => {
+    if(usuarios.length == 0){
+        console.log("Sem usuários cadastrados!")
+        return;
+    }else{
+        listagem();
+        let ID = +prompt("Informe o ID que deseja alterar: ");
+        let teste = verificaNum(ID);
         if(teste == false){
-            usuarios.forEach((element, index) => {
-                if(usuarioDeletar == element.id){
-                    usuarios.splice(index, 1);
+            const usuario = modelo();
+            for(let i = 0; i < usuarios.length; i++){
+                if(ID == usuarios[i].id){
+                    usuarios[i] = usuario;
+                    break;
                 }
-            });
-            console.log("Usuário deletado com sucesso!");
-            break;
+            }
+            console.log("Usuário atualizado com sucesso!") 
         }else{
             console.log("Digite um ID válido!")
         }
     }
+}
+const deletar = () => {
+    if(usuarios.length == 0){
+        console.log("Sem usuários cadastrados!");
+        return
+    }else{
+        listagem();
+        while(true){
+            usuarioDeletar = parseInt(prompt("Informe o ID que deseja apagar: "));
+            let teste = verificaNum(usuarioDeletar);
+            if(teste == false){
+                usuarios.forEach((element, index) => {
+                    if(usuarioDeletar == element.id){
+                        usuarios.splice(index, 1);
+                    }
+                });
+                console.log("Usuário deletado com sucesso!");
+                break;
+            }else{
+                console.log("Digite um ID válido!")
+            }
+        }
+    }
+}
+const menu = () => {
+    console.log(`Seja bem-vindo ao sistema de cadastro, o que deseja fazer?
+    [1]Cadastrar Usuário
+    [2]Listar cadastros
+    [3]Atualizar cadastro
+    [4]Apagar Usuário
+    [5]Sair
+    `)
 }
 
 module.exports = {
@@ -105,4 +129,5 @@ module.exports = {
     listagem,
     atualizar,
     deletar,
+    menu,
 }
