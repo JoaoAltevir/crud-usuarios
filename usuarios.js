@@ -11,6 +11,9 @@ const verificacaoEmail = (email) => {
         }
     }
 }
+
+const verificaNum = num => isNaN(num);
+
 const modelo = () => {
     const usuario = {};
     while(true){
@@ -64,24 +67,37 @@ const listagem = () => {
 const atualizar = () => {
     listagem();
     let ID = +prompt("Informe o ID que deseja alterar: ");
-    const usuario = modelo();
-    for(let i = 0; i < usuarios.length; i++){
-        if(ID == usuarios[i].id){
-            usuarios[i] = usuario;
-            break;
+    let teste = verificaNum(ID);
+    if(teste == false){
+        const usuario = modelo();
+        for(let i = 0; i < usuarios.length; i++){
+            if(ID == usuarios[i].id){
+                usuarios[i] = usuario;
+                break;
+            }
         }
+        console.log("Usuário atualizado com sucesso!") 
+    }else{
+        console.log("Digite um ID válido!")
     }
-    console.log("Usuário atualizado com sucesso!") 
 }
 const deletar = () => {
     listagem();
-    usuarioDeletar = parseInt(prompt("Informe o ID que deseja apagar: "));
-    usuarios.forEach((element, index) => {
-        if(usuarioDeletar == element.id){
-            usuarios.splice(index, 1);
+    while(true){
+        usuarioDeletar = parseInt(prompt("Informe o ID que deseja apagar: "));
+        let teste = verificaNum(usuarioDeletar);
+        if(teste == false){
+            usuarios.forEach((element, index) => {
+                if(usuarioDeletar == element.id){
+                    usuarios.splice(index, 1);
+                }
+            });
+            console.log("Usuário deletado com sucesso!");
+            break;
+        }else{
+            console.log("Digite um ID válido!")
         }
-    });
-    console.log("Usuário deletado com sucesso!");
+    }
 }
 
 module.exports = {
