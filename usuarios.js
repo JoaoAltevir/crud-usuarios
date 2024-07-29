@@ -50,6 +50,7 @@ const cadastro = () => {
     usuario.id = ultimoID;
     ultimoID++
     usuarios.push(usuario);  
+    console.log("Usuário cadastrado com sucesso!")
 }
 const listagem = () => {
     usuarios.forEach(element => {
@@ -61,10 +62,19 @@ const listagem = () => {
     });
 }
 const atualizar = () => {
-
+    listagem();
+    let ID = +prompt("Informe o ID que deseja alterar: ");
+    const usuario = modelo();
+    for(let i = 0; i < usuarios.length; i++){
+        if(ID == usuarios[i].id){
+            usuarios[i] = usuario;
+            break;
+        }
+    }
+    console.log("Usuário atualizado com sucesso!") 
 }
 const deletar = () => {
-
+    listagem();
 }
 
 module.exports = {
