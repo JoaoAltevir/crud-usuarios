@@ -1,7 +1,16 @@
 const prompt = require("prompt-sync")();
 //adicionar nome, email, id, lista de telefones
 const usuarios = [];
-const ultimoID = 0;
+const ultimoID = 1;
+const verificacaoEmail = (email) => {
+    for(let i = 0; i < usuarios.length; i++){
+        if(email == usuarios[i].email){
+            return 1
+        }else{
+            return 0
+        }
+    }
+}
 const modelo = () => {
     const usuario = {};
     while(true){
@@ -14,6 +23,10 @@ const modelo = () => {
     }
     while(true){
         usuario.email = prompt("Informe o seu email: ");
+        let teste = verificacaoEmail(usuario.email);
+        if(teste == 1){
+            console.log("Email já cadastrado, por favor digite outro!")
+        }
         if(usuario.email == ""){
             console.log("O email não pode estar vazio!");
         }else{
@@ -30,15 +43,22 @@ const modelo = () => {
             usuario.telefones.push(telefone);
         }
     }
-    usuario.id = ultimoID + 1;
     return usuario;
 }
 const cadastro = () => {
     const usuario = modelo();
+    usuario.id = ultimoID;
+    ultimoID++
     usuarios.push(usuario);  
 }
 const listagem = () => {
-
+    usuarios.forEach(element => {
+        console.log(`
+        Nome: ${element.nome}
+        Email: ${element.email}
+        Telefones: ${element.telefones}
+        ID: ${element.id}`)
+    });
 }
 const atualizar = () => {
 
