@@ -35,7 +35,7 @@ const modelo = () => {
 }
 const cadastro = () => {
     const usuario = modelo();
-    usuarios.push(usuario);
+    usuarios.push(usuario);  
 }
 const listagem = () => {
 
