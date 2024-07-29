@@ -1,7 +1,7 @@
 const prompt = require("prompt-sync")();
 //adicionar nome, email, id, lista de telefones
 const usuarios = [];
-const ultimoID = 1;
+let ultimoID = 1;
 const verificacaoEmail = (email) => {
     for(let i = 0; i < usuarios.length; i++){
         if(email == usuarios[i].email){
@@ -37,14 +37,14 @@ const modelo = () => {
         }
     }
     while(true){
-        usuario.telefones = []
-        let telefone = prompt('Informe quantos telefones desejar, quando quiser parar digite "Não"').toLowerCase
-        if(telefone == "nao" || telefone == "não"){
+        usuario.telefone = [];
+        let inputUsuario = prompt("Informe os números de telefone ou digite 'pare' para parar: ");
+        if(inputUsuario == "pare" || inputUsuario == "Pare"){
             break;
-        }else{
-            telefone = parseInt(telefone);
-            usuario.telefones.push(telefone);
         }
+        usuario.telefone.push(inputUsuario);
+        
+
     }
     return usuario;
 }
@@ -60,13 +60,16 @@ const listagem = () => {
         console.log("Sem usuários cadastrados! Adicione usuários para serem listados...")
         return
     }else{
-        usuarios.forEach(element => {
+        usuarios.forEach(usuario => {
             console.log(`
-            Nome: ${element.nome}
-            Email: ${element.email}
-            Telefones: ${element.telefones}
-            ID: ${element.id}`)
-        });
+            Nome: ${usuario.nome}
+            Email: ${usuario.email}
+            ID: ${usuario.id}`)
+            usuario.telefone.forEach((telefone,indice) => {
+                console.log(`
+                Telefone ${indice + 1}: ${telefone}`)
+            })
+        })
     }
 }
 const atualizar = () => {
@@ -81,6 +84,7 @@ const atualizar = () => {
             const usuario = modelo();
             for(let i = 0; i < usuarios.length; i++){
                 if(ID == usuarios[i].id){
+                    usuario.id = usuarios[i].id
                     usuarios[i] = usuario;
                     break;
                 }
