@@ -75,6 +75,13 @@ const atualizar = () => {
 }
 const deletar = () => {
     listagem();
+    usuarioDeletar = parseInt(prompt("Informe o ID que deseja apagar: "));
+    usuarios.forEach((element, index) => {
+        if(usuarioDeletar == element.id){
+            usuarios.splice(index, 1);
+        }
+    });
+    console.log("Usuário deletado com sucesso!");
 }
 
 module.exports = {
