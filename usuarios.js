@@ -36,15 +36,13 @@ const modelo = () => {
             break;
         }
     }
+    usuario.telefone = [];
     while(true){
-        usuario.telefone = [];
         let inputUsuario = prompt("Informe os números de telefone ou digite 'pare' para parar: ");
         if(inputUsuario == "pare" || inputUsuario == "Pare"){
             break;
         }
         usuario.telefone.push(inputUsuario);
-        
-
     }
     return usuario;
 }
@@ -62,9 +60,12 @@ const listagem = () => {
     }else{
         usuarios.forEach(usuario => {
             console.log(`
+
             Nome: ${usuario.nome}
             Email: ${usuario.email}
-            ID: ${usuario.id}`)
+            ID: ${usuario.id}
+            
+            `)
             usuario.telefone.forEach((telefone,indice) => {
                 console.log(`
                 Telefone ${indice + 1}: ${telefone}`)
